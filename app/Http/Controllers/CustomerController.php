@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CustomerController extends Controller
 {
@@ -12,12 +13,13 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //$customer = Customer::paginate(10);
-        $customer = Customer::all();
+        $customers = Customer::all();
+
         return response()->json([
-            'data' => $customer
-        ]);
-        
+            'status' => 'success',
+            'message' => 'Customers retrieved successfully',
+            'data' => $customers,
+        ], Response::HTTP_OK);
     }
 
     /**
