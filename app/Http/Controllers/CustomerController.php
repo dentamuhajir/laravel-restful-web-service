@@ -12,16 +12,12 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        dd("it works");
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        //$customer = Customer::paginate(10);
+        $customer = Customer::all();
+        return response()->json([
+            'data' => $customer
+        ]);
+        
     }
 
     /**
@@ -29,7 +25,18 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $customer = Customer::create(
+            [
+                'name'      => $request->name,
+                'id_number' => $request->id_number,
+                'dob'       => $request->dob,
+                'email'     => $request->email,
+            ]
+        );
+
+        return response()->json([
+            'data' => $customer
+        ]);
     }
 
     /**
