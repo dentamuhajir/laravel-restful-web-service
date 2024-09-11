@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator; 
 
 class CustomerController extends Controller
 {
@@ -27,6 +28,23 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate the request
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'id_number' => 'required|numeric|unique:customers,id_number',
+            'dob' => 'required|date',
+            'email' => 'required|email|unique:customers,email'
+        ]);
+
+        // Return validation errors
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $customer = Customer::create(
             [
                 'name'      => $request->name,
