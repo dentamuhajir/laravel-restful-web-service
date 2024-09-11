@@ -1,3 +1,24 @@
 php artisan make:model Customer -mcr
 
 php artisan migrate
+
+
+// How to install JWT Token
+composer require tymon/jwt-auth
+
+// Register provider
+php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+
+Generate Token
+php artisan jwt:secret
+jwt-auth secret [ZpDQMCzg5v5oUjrjZ554mQH16hgXOrinqktpcmcI7jdbGmtBqMcnE3JCS6yW5ZMk] set successfully.
+
+Automatic generate on .env 
+JWT_SECRET=your_generated_secret_key
+
+create authController 
+php artisan make:controller AuthController
+
+test using
+Authorization Bearer jwt_token
+
