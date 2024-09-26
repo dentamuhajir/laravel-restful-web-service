@@ -9,4 +9,10 @@ class Customer extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    // A Customer can have many orders
+    public function orders() 
+    {
+        return $this->hasMany(Order::class);
+    }
 }
